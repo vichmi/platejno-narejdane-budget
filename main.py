@@ -68,12 +68,10 @@ window.geometry('800x600')
 
 EXCEL_FILE = [f for f in os.listdir('.') if f == 'obrazec.xlsx'][0]
 
-wb = openpyxl.load_workbook(EXCEL_FILE)
-sheet = wb.active
 
 error_message = ErrorMessage()
 
-def fill_cells(text, row_num):
+def fill_cells(text, row_num, sheet):
     for i in range(len(text)):
         sheet[f'{COLUMNS[i+1]}{row_num}'] = text[i]
 
@@ -86,32 +84,36 @@ def fill_excel(*args):
         return
     addresse = [adr for adr in ADDRESSEE if adr['short_name'] == payment_type.get()][0]
 
+    wb = openpyxl.load_workbook(EXCEL_FILE)
+    sheet = wb.active
     # IBAN
-    fill_cells(addresse['iban'], 21)
+    fill_cells(addresse['iban'], 21, sheet)
         
     # OSNOVANIE 1
-    fill_cells(addresse['osnovanie_row1'], 27)
+    fill_cells(addresse['osnovanie_row1'], 27, sheet)
 
     # Firm
-    fill_cells(firm.var.get(), 37)
+    fill_cells(firm.var.get(), 37, sheet)
 
     # Firm EIK
-    fill_cells(firm_eik.var.get(), 43)
+    fill_cells(firm_eik.var.get(), 43, sheet)
 
     # Nareditel
-    fill_cells(nareditel.var.get(), 46)
+    fill_cells(nareditel.var.get(), 46, sheet)
 
     # Nareditel IBAN
-    fill_cells(nareditel_iban.var.get(), 49)
+    fill_cells(nareditel_iban.var.get(), 49, sheet)
 
     # SUM
     index = 0
     coins = 0
     sum_string = ''
+    print(sum_string)
     if '.' not in payment_sum.var.get():
         payment_sum.var.set(f'{payment_sum.var.get()}.00')
     
     sum_string = payment_sum.var.get().replace('.', '')
+
     for i in range(len(sum_string) - 1, -1, -1):
         find_index = COLUMNS.index('aj') - index - coins
         sheet[f'{COLUMNS[find_index]}24'] = sum_string[i]
@@ -120,6 +122,7 @@ def fill_excel(*args):
     d = datetime.datetime.now()
     file_name = f'{firm.var.get()} {payment_type.get()} {d.strftime("%d")}-{d.strftime("%m")}-{d.strftime("%Y")} {d.strftime("%H")}-{d.strftime("%M")}-{d.strftime("%S")}.xlsx'
     wb.save(f'./FILES/{file_name}')
+    payment_sum.delete_value()
 
 payment_label = tk.Label(window, text = 'Метод на плащане ')
 payment_label.grid(row = 0, column=0)
@@ -173,7 +176,7 @@ def add_template():
     templates.append(options)
     new_sorted_templates = sorted(templates, key = lambda t: t['name'].lower())
 
-    with open('./bin/templates.json', 'w') as f:
+    with open('./templates.json', 'w') as f:
         json.dump(new_sorted_templates, f, indent = 4)
     templates_options_menu = tk.OptionMenu(window, templates_options, *[t['name'] for t in new_sorted_templates])
     templates_options_menu.grid(column=9, row=0)
