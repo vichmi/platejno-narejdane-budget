@@ -1,18 +1,13 @@
 [
     {
-        "name": "\u0442\u0435\u0441\u0442",
-        "firm_name": "\u0430\u0430\u0430\u0430",
-        "firm_eik": "\u0442\u0435\u0441\u0442",
-        "nareditel": "\u0442\u0435\u0441\u0442",
-        "nareditel_iban": "\u0442\u0435\u0441\u0442",
-        "payment_type": "\u0414\u0430\u043d\u044a\u0446\u0438"
+        "name": "--\u041d\u044f\u043c\u0430 \u0441\u044a\u0437\u0434\u0430\u0434\u0435\u043d\u0438 \u0448\u0430\u0431\u043b\u043e\u043d\u0438--"
     },
     {
-        "name": "\u0442\u0435\u0441\u0442",
-        "firm_name": "\u0430\u0430\u0430\u0430\u0431",
-        "firm_eik": "\u0442\u0435\u0441\u0442",
-        "nareditel": "\u0442\u0435\u0441\u0442",
-        "nareditel_iban": "\u0442\u0435\u0441\u0442",
+        "name": "\u0431\u0430\u0439 \u0442\u043e\u0448\u043e",
+        "firm_name": "pas pas",
+        "firm_eik": "3245",
+        "nareditel": "fbs",
+        "nareditel_iban": "564q3",
         "payment_type": "\u0414\u0430\u043d\u044a\u0446\u0438"
     }
 ]
